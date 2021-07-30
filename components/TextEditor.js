@@ -34,7 +34,10 @@ function TextEditor({ session, id }) {
       .collection("docs")
       .doc(id)
       .set(
-        { editorState: convertToRaw(editorState.getCurrentContent()) },
+        {
+          editorState: convertToRaw(editorState.getCurrentContent()),
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        },
         { merge: true }
       );
   };
