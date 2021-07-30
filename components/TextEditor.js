@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { db } from "../firebase";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
+import firebase from "firebase";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((module) => module.Editor),
