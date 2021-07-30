@@ -3,8 +3,13 @@ import Icon from "@material-tailwind/react/Icon";
 import Head from "next/head";
 import Image from "next/image";
 import Header from "../components/Header";
+import { getSession, useSession } from "next-auth/client";
+import Login from "../components/Login";
 
 export default function Home() {
+  const [session] = useSession();
+
+  if (!session) return <Login />;
   return (
     <div>
       <Head>
@@ -43,11 +48,21 @@ export default function Home() {
         <div className="max-w-3xl mx-auto py-8 text-gray-700 text-sm">
           <div className="flex items-center justify-between pb-5">
             <h2 className="font-medium flex-grow">My Documents</h2>
-            <p className="mr-12" >Date Created</p>
+            <p className="mr-12">Date Created</p>
             <Icon name="folder" color="gray" size="3xl" />
           </div>
         </div>
       </section>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
