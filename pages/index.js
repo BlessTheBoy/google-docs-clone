@@ -8,7 +8,7 @@ import Login from "../components/Login";
 import Modal from "@material-tailwind/react/Modal";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { db } from "../firebase";
 import firebase from "firebase";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
@@ -29,6 +29,8 @@ export default function Home() {
       .collection("docs")
       .orderBy("timestamp", "desc")
   );
+
+  const ref = useRef();
 
   const createDocument = async () => {
     if (!input) return;
@@ -51,6 +53,7 @@ export default function Home() {
     <Modal size="sm" active={showModal} toggler={() => setShowModal(false)}>
       <ModalBody>
         <input
+          ref={ref}
           type="text"
           placeholder="Enter name of document..."
           value={input}
@@ -102,7 +105,10 @@ export default function Home() {
           </div>
           <div>
             <div
-              onClick={(e) => setShowModal(true)}
+              onClick={(e) => {
+                setShowModal(true);
+                ref.current.focus();
+              }}
               className="relative h-52 w-40 border-2 cursor-pointer hover:border-blue-700"
             >
               <Image src="https://links.papareact.com/pju" layout="fill" />
