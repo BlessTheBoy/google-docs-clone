@@ -59,7 +59,11 @@ function Doc() {
         />
       </header>
 
-      <TextEditor />
+      <TextEditor
+        session={session}
+        id={id}
+        snapshotData={snapshot?.data()}
+      />
     </div>
   );
 }
