@@ -79,7 +79,7 @@ export default function Home() {
   );
 
   return (
-    <div>
+    <div className="w-full">
       <Head>
         <title>Google Docs Clone</title>
         <link rel="icon" href="/favicon.ico" />
